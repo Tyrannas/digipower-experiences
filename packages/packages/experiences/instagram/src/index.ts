@@ -14,7 +14,6 @@ const loaderOptions: LoaderOptions = {
   databaseConfig,
   files: {
     messages: '**/messages/inbox/**/message_*.json',
-    // followers lost its wrapper and was renamed followers_1.json
     followers: '**/followers_1.json',
     followings: '**/following.json',
     postsViewed: '**/posts_viewed.json',
@@ -23,15 +22,12 @@ const loaderOptions: LoaderOptions = {
     likedComments: '**/liked_comments.json',
     likedPosts: '**/liked_posts.json',
     advertisers: '**/advertisers_using_your_activity_or_information.json',
-    // ads_interests.json is gone; inferred interests now live here (vec lists)
     adsInterests: '**/other_categories_used_to_reach_you.json',
     personalInfos: '**/personal_information.json',
-    // --- new datasets surfaced by the enrichment ---
     threadsViewed: '**/threads_viewed.json',
     comments: '**/post_comments_*.json',
     reelsComments: '**/reels_comments.json',
     storiesViewed: '**/stories_viewed.json',
-    // reposts are a recent feature (your_instagram_activity/media/reposts.json)
     reposts: '**/media/reposts.json',
     storyLikes: '**/story_likes.json',
     polls: '**/story_interactions/polls.json',

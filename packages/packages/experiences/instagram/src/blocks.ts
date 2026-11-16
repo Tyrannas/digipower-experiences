@@ -19,7 +19,6 @@ const blocks: ViewBlocks = [
     id: 'consumption',
     sql: sqlViews,
     showTable: false,
-    // only the core file is required; the other sources are optional
     files: ['postsViewed'],
     visualization: 'ChartViewDashboard.vue',
     vizProps: {
@@ -103,7 +102,6 @@ const blocks: ViewBlocks = [
   {
     id: 'interactions',
     sql: sqlInteractions,
-    // optional sources (comments, stories, saved...) must not block the panel
     files: ['likedPosts', 'followings', 'messages', 'personalInfos'],
     showTable: false,
     visualization: 'ChartViewDashboard.vue',
@@ -210,8 +208,6 @@ const blocks: ViewBlocks = [
     title: 'Ads 3/3 (Advertisers)',
     text: 'See which advertisers have used your information on Instagram.'
   },
-  // The new export no longer contains geotagged posts/stories (per-post lat/long),
-  // so the Localisation map has no data source and has been removed.
   {
     id: 'locations',
     sql: sqlLocations,
