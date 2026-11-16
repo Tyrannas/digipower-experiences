@@ -441,15 +441,11 @@
             "Date": "Date",
             "Description": "Description"
           }
+        },
+        "ad-advertisers": {
+          "title": "Ads 3/3 (Advertisers)",
+          "text": "See which advertisers have used your information on Instagram."
         }
-      },
-      "ad-advertisers": {
-        "title": "Ads 3/3 (Advertisers)",
-        "text": "See which advertisers have used your information on Instagram."
-      },
-      "localisation": {
-        "title": "Localisation",
-        "text": "See your posts and stories that have been geotagged."
       }
     },
     "fr": {
@@ -583,10 +579,6 @@
         "ad-advertisers": {
           "title": "Publicité 3/3 (Annonceurs)",
           "text": "Observer quels sont les annonceurs qui utilisent vos informations sur Instagram."
-        },
-        "localisation": {
-          "title": "Localisation",
-          "text": "Consultez vos Posts et vos Stories qui ont été géolocalisées."
         },
         "locations": {
           "title": "Lieux",
