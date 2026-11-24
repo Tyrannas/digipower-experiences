@@ -30,6 +30,8 @@ export default defineConfig({
         '@': path.resolve(__dirname, 'src'),
         // https://github.com/micromatch/picomatch/pull/23
         picomatch: 'picomatch-browser',
+        // the package's "exports" hide its locale files; they are bundled, not fetched from a CDN
+        'd3-time-format-locale': path.join(path.dirname(require.resolve('d3-time-format')), '../locale'),
         ...experienceAliases
       },
       fallback: {
@@ -41,6 +43,12 @@ export default defineConfig({
     },
     module: {
       rules: [
+        {
+          // sql.js engine, served next to the app instead of a CDN
+          test: /sql-wasm\.wasm$/,
+          type: 'asset/resource',
+          generator: { filename: 'sql-wasm.[contenthash:7].wasm' }
+        },
         {
           test: /\.worker\.js$/,
           use: [

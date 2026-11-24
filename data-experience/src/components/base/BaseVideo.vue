@@ -6,16 +6,12 @@
     <VAlert v-if="!url" color="red" dense type="error">
       The video link provided is not recognized
     </VAlert>
-    <iframe
-      v-if="url"
-      :src="url"
-      :width="width"
-      :height="height"
-      frameborder="0"
-      allow="autoplay; fullscreen; picture-in-picture"
-      allowfullscreen
-      class="pa-3 video"
-    />
+    <!-- offline build: no embedded player (it would contact the video host) -->
+    <div v-if="url" class="pa-3">
+      <ExternalLink :href="videoSrc">
+        {{ videoSrc }}
+      </ExternalLink>
+    </div>
     <div style="text-align: end; margin-top: 0px; font-size: 12px">
       <ExternalLink :href="linkSrc">
         {{ linkTxt }}

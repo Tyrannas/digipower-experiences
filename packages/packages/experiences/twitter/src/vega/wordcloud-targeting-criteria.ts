@@ -127,7 +127,7 @@ export default (
           enter: {
             url: {
               value:
-                'https://cdn1.iconfinder.com/data/icons/free-education-set/32/question-512.png'
+                'data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Ccircle cx=%2716%27 cy=%2716%27 r=%2715%27 fill=%27%23777%27/%3E%3Ctext x=%2716%27 y=%2723%27 font-size=%2720%27 font-family=%27sans-serif%27 text-anchor=%27middle%27 fill=%27%23fff%27%3E%3F%3C/text%3E%3C/svg%3E'
             }
           },
           update: {

@@ -187,6 +187,8 @@
 <script>
 import { debounce, cloneDeep, merge } from 'lodash-es'
 import { json, timeFormatDefaultLocale } from 'd3'
+import d3LocaleEnUS from 'd3-time-format-locale/en-US.json'
+import d3LocaleFrFR from 'd3-time-format-locale/fr-FR.json'
 
 import { locales, localeCodes } from '@/i18n/locales'
 
@@ -241,9 +243,17 @@ const siteConfigDefault = {
   messages: {}
 }
 
-async function d3Locale({ iso }) {
-  const locale = await json(`https://cdn.jsdelivr.net/npm/d3-time-format@4/locale/${iso}.json`)
-  timeFormatDefaultLocale(locale)
+// bundled with the app: no network request
+const d3TimeLocales = {
+  'en-US': d3LocaleEnUS,
+  'fr-FR': d3LocaleFrFR
+}
+
+function d3Locale({ iso }) {
+  const locale = d3TimeLocales[iso]
+  if (locale) {
+    timeFormatDefaultLocale(locale)
+  }
 }
 
 export default {

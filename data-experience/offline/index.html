@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <!--
+      The browser enforces this policy: the page may only load or contact files
+      from its own origin. Any attempt to reach another server is blocked and
+      reported in the console ("Refused to connect / load ...").
+      'unsafe-eval' is for the chart engine (Vega compiles expressions); it does
+      not allow any network access.
+    -->
+    <meta http-equiv="Content-Security-Policy" content="
+      default-src 'self';
+      script-src 'self' 'unsafe-eval' 'wasm-unsafe-eval' blob:;
+      worker-src 'self' blob:;
+      style-src 'self' 'unsafe-inline';
+      img-src 'self' data: blob:;
+      font-src 'self' data:;
+      connect-src 'self' blob: data:;
+      frame-src 'self' blob: data:;
+      media-src 'self' blob: data:;
+      object-src 'none';
+      base-uri 'self';
+      form-action 'none'">
+    <meta name="referrer" content="no-referrer">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title><%= htmlWebpackPlugin.options.title %></title>
+  </head>
+  <body>
+    <noscript>This page needs JavaScript. It runs entirely on your computer.</noscript>
+    <div id="app"></div>
+  </body>
+</html>

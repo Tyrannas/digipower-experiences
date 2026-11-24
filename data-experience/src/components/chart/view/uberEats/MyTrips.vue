@@ -174,6 +174,7 @@ import dayjs from 'dayjs'
 import isSameOrAfter from 'dayjs/plugin/isSameOrAfter'
 import isSameOrBefore from 'dayjs/plugin/isSameOrBefore'
 import mixin from '@/components/chart/view/mixin'
+import { offlineMapStyle } from '@/utils/offline-map-style'
 import { periodStore } from './store/periodStore'
 
 dayjs.extend(isSameOrAfter)
@@ -473,7 +474,7 @@ export default {
     // Initialize MapLibre map
     this.map = new maplibregl.Map({
       container: this.$refs.mapContainer,
-      style: 'https://basemaps.cartocdn.com/gl/positron-gl-style/style.json',
+      style: offlineMapStyle(),
       bounds: [
         [5.9559, 45.8179],
         [10.4920, 47.8084]
