@@ -1,4 +1,4 @@
-import { PostprocessorFunction } from '@/types'
+import { PostprocessorFunction } from '@lib/types'
 
 export const driverHeatMapPostProcessor: PostprocessorFunction = result => {
   const items = result?.items || []

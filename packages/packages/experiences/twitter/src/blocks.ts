@@ -1,4 +1,4 @@
-import type { ViewBlocks } from '@/types'
+import type { ViewBlocks } from '@lib/types'
 
 import sqlOverview from './sql/overview.sql'
 import sqlOverviewLastMonth from './sql/overview-last-month.sql'
@@ -11,14 +11,14 @@ import sqlAllCriteriaAllAdvertisers from './sql/all-criteria-all-advertisers.sql
 import vegaWordcloudTargetingCriteriaEn from './vega/wordcloud-targeting-criteria-en'
 import vegaWordcloudTargetingCriteriaFr from './vega/wordcloud-targeting-criteria-fr'
 
-import { genericDateViewer } from '@/pipelines/generic'
+import { genericDateViewer } from '@lib/pipelines/generic'
 
 const blocks: ViewBlocks = [
   {
     id: 'overview',
     sql: sqlOverview,
     files: ['impressions', 'engagements'],
-    visualization: 'ChartViewOverviewTwitter.vue',
+    visualization: './views/ChartViewOverviewTwitter.vue',
     title: 'Advertising overview',
     text: 'Understand how much, who and why you are being targeted by Twitter ads in this interactive visualization. Click on any graph to filter the results.'
   },
@@ -26,7 +26,7 @@ const blocks: ViewBlocks = [
     id: 'overview-last-month',
     sql: sqlOverviewLastMonth,
     files: ['impressions', 'engagements'],
-    visualization: 'ChartViewOverviewTwitter.vue',
+    visualization: './views/ChartViewOverviewTwitter.vue',
     title: 'Advertising overview (last month)',
     text: 'Understand how much, who and why you have been targeted by Twitter ads last month in this interactive visualization. Click on any graph to filter the results.'
   },
@@ -70,14 +70,14 @@ const blocks: ViewBlocks = [
     postprocessor: 'sunburstTargeting',
     showTable: true,
     title: 'Targeting criteria (1 advertiser)',
-    visualization: 'ChartViewSearchSunburst.vue',
+    visualization: './views/ChartViewSearchSunburst.vue',
     text: 'Visualize the targeting criteria used by one specific advertiser. You can look up the advertiser in the table below and click on it to visualise them.'
   },
   {
     id: 'personalization',
     sql: sqlPersonalization,
     files: ['personalization'],
-    visualization: 'ChartViewTwitterInferredInfos.vue',
+    visualization: './views/ChartViewTwitterInferredInfos.vue',
     title: 'Inferred Data',
     text: 'Find out what information Twitter has deduced about you'
   },

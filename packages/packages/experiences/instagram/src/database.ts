@@ -1,6 +1,6 @@
-import type { DatabaseConfig } from '@/types'
-import { SQLType, JSONPathRecord } from '@/types/database-config'
-import { toDateString, SUPPORTED_LOCALE } from '@/utils'
+import type { DatabaseConfig } from '@lib/types'
+import { SQLType, JSONPathRecord } from '@lib/types/database-config'
+import { toDateString, SUPPORTED_LOCALE } from '@lib/utils'
 
 const { TEXT } = SQLType
 

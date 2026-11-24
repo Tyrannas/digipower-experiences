@@ -1,4 +1,4 @@
-import type { ViewBlocks } from '@/types'
+import type { ViewBlocks } from '@lib/types'
 import allActivitySegment from './sql/all-activity-segment.sql'
 import allPlaceVisit from './sql/all-place-visit.sql'
 import recordsLinkedToMac from './sql/records-linked-to-mac.sql'

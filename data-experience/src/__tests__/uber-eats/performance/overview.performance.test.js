@@ -1,10 +1,10 @@
 import { shallowMount } from '@vue/test-utils'
 import dayjs from 'dayjs'
-import OverView from '@/components/chart/view/uberEats/Overview.vue'
-import { periodStore } from '@/components/chart/view/uberEats/store/periodStore'
+import OverView from '@experiences/uber-eats/src/views/Overview.vue'
+import { periodStore } from '@experiences/uber-eats/src/views/store/periodStore'
 import { max } from 'lodash-es'
 
-jest.mock('@/components/chart/view/uberEats/onboarding/tour', () => ({
+jest.mock('@experiences/uber-eats/src/views/onboarding/tour', () => ({
   createTour: () => ({ start: jest.fn() })
 }))
 

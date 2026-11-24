@@ -1,4 +1,4 @@
-import type { ViewBlocks } from '@/types'
+import type { ViewBlocks } from '@lib/types'
 
 import sqlOverview from './sql/overview.sql'
 import sqlOverviewLastMonth from './sql/overview-last-month.sql'

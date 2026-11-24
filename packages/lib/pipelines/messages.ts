@@ -1,4 +1,4 @@
-import type { Messages } from '@/types/experience-options'
+import type { Messages } from '@lib/types/experience-options'
 
 const genericDateViewer: Messages = {
   en: {

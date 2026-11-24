@@ -1,4 +1,4 @@
-import type { ViewBlocks } from '@/types'
+import type { ViewBlocks } from '@lib/types'
 
 import allInferences from './sql/inference.sql'
 import allConnections from './sql/connection.sql'

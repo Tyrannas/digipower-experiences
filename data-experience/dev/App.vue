@@ -102,7 +102,6 @@ const initialExperience = 'uber-driver'
 const siteConfig = {
   i18nLocales: ['fr', 'en'],
   i18nUrl: '/i18n-messages-custom-dev.json',
-  experienceViewerOptions: '',
   // experienceViewerOptions: 'https://raw.githubusercontent.com/digipower-academy/experience-viewer-options/main',
   theme: {
     primary: '#0C2D48',
@@ -165,8 +164,7 @@ function makeBubbleConfig(bubbleId) {
     return undefined
   }
   return {
-    experienceViewerOptions: '',
-    // experienceViewerOptions: 'https://raw.githubusercontent.com/digipower-academy/experience-viewer-options/main',
+      // experienceViewerOptions: 'https://raw.githubusercontent.com/digipower-academy/experience-viewer-options/main',
     ...configFromServer
   }
 }

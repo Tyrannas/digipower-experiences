@@ -7,7 +7,7 @@ import isSameOrBefore from 'dayjs/plugin/isSameOrBefore'
 import isSameOrAfter from 'dayjs/plugin/isSameOrAfter'
 import { mount } from '@vue/test-utils'
 import { vuetify } from '../vuetify.helpers'
-import EarningsView from '@/components/chart/view/uberEats/ServiceRevenues.vue'
+import EarningsView from '@experiences/uber-eats/src/views/ServiceRevenues.vue'
 
 dayjs.extend(isSameOrBefore)
 dayjs.extend(isSameOrAfter)
@@ -16,7 +16,7 @@ dayjs.extend(isSameOrAfter)
  * Mocks
  * --------------------------------------------------- */
 
-jest.mock('@/components/chart/view/uberEats/store/periodStore', () => ({
+jest.mock('@experiences/uber-eats/src/views/store/periodStore', () => ({
   periodStore: {
     mode: 'week',
     periodStart: '2023-10-09T00:00:00.000Z',

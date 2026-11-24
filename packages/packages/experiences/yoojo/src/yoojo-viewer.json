@@ -41,7 +41,7 @@
       "id": "shiftTimeline",
       "customPipeline": "csv_yoojo_jobs",
       "files": ["jobs"],
-      "visualization": "yoojo/OverView.vue",
+      "visualization": "./views/OverView.vue",
       "title": "Shift Timeline",
       "text": "Overview of your Yoojo jobs over time."
     },
@@ -50,7 +50,7 @@
       "id": "activityTypes",
       "customPipeline": "csv_yoojo_jobs",
       "files": ["jobs"],
-      "visualization": "yoojo/ActivityTypes.vue",
+      "visualization": "./views/ActivityTypes.vue",
       "title": "Activity Types",
       "text": "Activity types over time."
     },
@@ -59,7 +59,7 @@
       "id": "earningsDistribution",
       "customPipeline": "csv_yoojo_jobs",
       "files": ["jobs"],
-      "visualization": "yoojo/EarningsDistribution.vue",
+      "visualization": "./views/EarningsDistribution.vue",
       "title": "Earnings Distribution",
       "text": "Earnings over time."
     },
@@ -68,7 +68,7 @@
       "id": "effectiveWork",
       "customPipeline": "yoojo_effective_work",
       "files": ["jobs"],
-      "visualization": "yoojo/EffectiveWork.vue",
+      "visualization": "./views/EffectiveWork.vue",
       "title": "Effective work",
       "text": "How much of your effort on Yoojo turns into paid work: the jobs (and hours) you applied for, compared with those a client booked, overall and by category. The booking rate is jobs booked divided by jobs applied for."
     }

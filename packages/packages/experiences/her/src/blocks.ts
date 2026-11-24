@@ -1,4 +1,4 @@
-import type { ViewBlocks } from '@/types'
+import type { ViewBlocks } from '@lib/types'
 
 import sqlProfiles from './sql/profiles.sql'
 import sqlLikesPasses from './sql/likes-passes.sql'
@@ -13,7 +13,7 @@ const blocks: ViewBlocks = [
     id: 'profiles',
     sql: sqlProfiles,
     files: ['profiles'],
-    visualization: 'ChartViewHerUserInfos.vue',
+    visualization: './views/ChartViewHerUserInfos.vue',
     title: 'User Infos',
     text: 'HER profile information'
   },
@@ -50,7 +50,7 @@ const blocks: ViewBlocks = [
     id: 'matches',
     sql: sqlLiked,
     files: ['liked'],
-    visualization: 'ChartViewOverviewHer.vue',
+    visualization: './views/ChartViewOverviewHer.vue',
     title: 'Matches',
     text: "Look at the likes you've made that have become matches or not."
   },
@@ -58,7 +58,7 @@ const blocks: ViewBlocks = [
     id: 'messages',
     sql: sqlMessages,
     files: ['messages'],
-    visualization: 'ChartViewHerMessageActivity.vue',
+    visualization: './views/ChartViewHerMessageActivity.vue',
     vizProps: {
       dateAccessor: 'messageSentAt'
     },

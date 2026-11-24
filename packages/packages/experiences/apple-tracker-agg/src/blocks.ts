@@ -1,4 +1,4 @@
-import type { ViewBlocks } from '@/types'
+import type { ViewBlocks } from '@lib/types'
 import sqlIOSNetwork from '../../apple-tracker/src/sql/all-ios-network.sql'
 import sqlIOSAccess from '../../apple-tracker/src/sql/all-ios-access.sql'
 

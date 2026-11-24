@@ -1,4 +1,4 @@
-declare module '@/icons/*' {
+declare module '@lib/icons/*' {
   const value: string
   export default value
 }
@@ -32,12 +32,12 @@ declare module '*model.json' {
   export default value
 }
 
-declare module '@/data-samples/*' {
+declare module '@lib/data-samples/*' {
   const value: string
   export default value
 }
 
-declare module '@/data-samples/*.json' {
+declare module '@lib/data-samples/*.json' {
   const value: string
   export default value
 }

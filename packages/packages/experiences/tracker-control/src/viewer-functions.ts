@@ -1,4 +1,4 @@
-import { customPipelineMergeCSV } from '@/pipelines/custom'
+import { customPipelineMergeCSV } from '@lib/pipelines/custom'
 const viewerFunctions = {
   postprocessors: {},
   customPipelines: {

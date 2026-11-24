@@ -4,7 +4,7 @@
 
 import { mount } from '@vue/test-utils'
 import dayjs from 'dayjs'
-import ActivityTypes from '@/components/chart/view/yoojo/ActivityTypes.vue'
+import ActivityTypes from '@experiences/yoojo/src/views/ActivityTypes.vue'
 
 // Stub ApexCharts
 jest.mock('vue-apexcharts', () => ({

@@ -1,5 +1,5 @@
 import { mount } from '@vue/test-utils'
-import MyTrips from '@/components/chart/view/uberEats/MyTrips.vue'
+import MyTrips from '@experiences/uber-eats/src/views/MyTrips.vue'
 import { performance } from 'perf_hooks'
 
 // Helper to generate mock trips
@@ -20,7 +20,7 @@ function generateMockTrips(count) {
 }
 
 // Mock periodStore for min/max date
-jest.mock('@/components/chart/view/uberEats/store/periodStore', () => ({
+jest.mock('@experiences/uber-eats/src/views/store/periodStore', () => ({
   periodStore: {
     allTimeStart: new Date('2020-01-01').toISOString(),
     allTimeEnd: new Date('2030-01-01').toISOString()

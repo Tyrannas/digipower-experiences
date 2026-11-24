@@ -1,4 +1,4 @@
-import { PreprocessorFunction } from '@/types/experience-options'
+import { PreprocessorFunction } from '@lib/types/experience-options'
 
 // skip first 3 rows
 export const linkedinConnections: PreprocessorFunction = string =>

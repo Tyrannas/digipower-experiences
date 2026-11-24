@@ -1,5 +1,5 @@
 import packageJSON from '../package.json'
-import { Experience, LoaderOptions, ViewerOptions } from '@/index'
+import { Experience, LoaderOptions, ViewerOptions } from '@lib/index'
 import viewerOptions from './tinder-viewer.json'
 import databaseConfig from './database'
 

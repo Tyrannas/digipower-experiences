@@ -1,4 +1,4 @@
-import type { ViewBlocks } from '@/types'
+import type { ViewBlocks } from '@lib/types'
 import allPlaceVisit from '../../google-agg/src/sql/all-places.sql'
 import allPlaceSearched from '../../google-agg/src/sql/all-searched.sql'
 import allRecords from '../../google-agg/src/sql/all-records.sql'
@@ -53,7 +53,7 @@ const blocks: ViewBlocks = [
     id: 'PublicTransport',
     sql: allTravels,
     files: ['travels'],
-    visualization: 'ChartViewGoogleAggTrips.vue',
+    visualization: './views/ChartViewGoogleAggTrips.vue',
     title: 'Public Transport',
     text: '',
     vizProps: {

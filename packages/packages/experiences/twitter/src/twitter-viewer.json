@@ -357,7 +357,7 @@
       "id": "overview",
       "sql": "WITH EngagementCount AS ( SELECT a.tweetId, a.advertiserName, a.displayLocation, a.time, COUNT(*) AS count_ FROM TwitterAd a, TwitterEngagement e WHERE a.tweetId = e.tweetId AND a.advertiserName = e.advertiserName AND a.displayLocation = e.displayLocation \n-- We only consider engagements that occur\n-- within 120 sec of a corresponding impression. \n-- 60 sec x 60 min x 24 hours = 86,400 sec\n  AND ABS( ROUND((JULIANDAY(a.time) - JULIANDAY(e.time)) * 86400) ) < 120 GROUP BY a.tweetId, a.advertiserName, a.displayLocation, a.time ), Engagement AS ( SELECT a.tweetId, a.advertiserName AS companyName, \n-- Return 0 if ad has no engagements\n IFNULL( ( SELECT ec.count_ FROM EngagementCount ec WHERE a.tweetId = ec.tweetId AND a.advertiserName = ec.advertiserName AND a.displayLocation = ec.displayLocation AND a.time = ec.time ), 0 ) engagements, a.time AS date_, c.targetingType, c.targetingValue FROM TwitterAd a INNER JOIN TwitterCriterion c ON a.id = c.adId ) SELECT ( \n-- Yes/No is interpreted as BOOLEAN by type-check.js\n CASE WHEN e.engagements IS 0 THEN 'No' ELSE 'Yes' END ) AS engagedWith, e.* FROM Engagement e ",
       "files": ["impressions", "engagements"],
-      "visualization": "ChartViewOverviewTwitter.vue",
+      "visualization": "./views/ChartViewOverviewTwitter.vue",
       "title": "Advertising overview",
       "text": "Understand how much, who and why you are being targeted by Twitter ads in this interactive visualization. Click on any graph to filter the results."
     },
@@ -366,7 +366,7 @@
       "id": "overview-last-month",
       "sql": "WITH EngagementCount AS ( SELECT a.tweetId, a.advertiserName, a.displayLocation, a.time, COUNT(*) AS count_ FROM TwitterAd a, TwitterEngagement e WHERE a.tweetId = e.tweetId AND a.advertiserName = e.advertiserName AND a.displayLocation = e.displayLocation \n-- We only consider engagements that occur \n-- within 120 sec of a corresponding impression. \n-- 60 sec x 60 min x 24 hours = 86,400 sec\n AND ABS( ROUND((JULIANDAY(a.time) - JULIANDAY(e.time)) * 86400) ) < 120 GROUP BY a.tweetId, a.advertiserName, a.displayLocation, a.time ), Engagement AS ( SELECT a.tweetId, a.advertiserName AS companyName, \n-- Return 0 if ad has no engagements\n IFNULL( ( SELECT ec.count_ FROM EngagementCount ec WHERE a.tweetId = ec.tweetId AND a.advertiserName = ec.advertiserName AND a.displayLocation = ec.displayLocation AND a.time = ec.time ), 0 ) engagements, a.time AS date_, c.targetingType, c.targetingValue FROM TwitterAd a INNER JOIN TwitterCriterion c ON a.id = c.adId WHERE a.time > DATE('now', '-1 month') ) SELECT ( \n-- Yes/No is interpreted as BOOLEAN by type-check.js\n CASE WHEN e.engagements IS 0 THEN 'No' ELSE 'Yes' END ) AS engagedWith, e.* FROM Engagement e ",
       "files": ["impressions", "engagements"],
-      "visualization": "ChartViewOverviewTwitter.vue",
+      "visualization": "./views/ChartViewOverviewTwitter.vue",
       "title": "Advertising overview (last month)",
       "text": "Understand how much, who and why you have been targeted by Twitter ads last month in this interactive visualization. Click on any graph to filter the results."
     },
@@ -835,7 +835,7 @@
       "files": ["impressions", "engagements"],
       "postprocessor": "sunburstTargeting",
       "title": "Targeting criteria (1 advertiser)",
-      "visualization": "ChartViewSearchSunburst.vue",
+      "visualization": "./views/ChartViewSearchSunburst.vue",
       "text": "Visualize the targeting criteria used by one specific advertiser. You can look up the advertiser in the table below and click on it to visualise them."
     },
     {
@@ -843,7 +843,7 @@
       "id": "personalization",
       "sql": "SELECT * FROM TwitterPersonalization; ",
       "files": ["personalization"],
-      "visualization": "ChartViewTwitterInferredInfos.vue",
+      "visualization": "./views/ChartViewTwitterInferredInfos.vue",
       "title": "Inferred Data",
       "text": "Find out what information Twitter has deduced about you"
     },

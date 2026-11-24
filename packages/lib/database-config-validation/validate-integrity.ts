@@ -1,12 +1,12 @@
-import type { DatabaseConfig } from '@/types'
-import type { NonEmptyArray } from '@/types/utils'
-import type { Files } from '@/types/experience-options'
+import type { DatabaseConfig } from '@lib/types'
+import type { NonEmptyArray } from '@lib/types/utils'
+import type { Files } from '@lib/types/experience-options'
 import type {
   DatabaseGetterColumnReference,
   DatabaseGetter,
   DatabaseTable,
   DatabaseTables
-} from '@/types/database-config'
+} from '@lib/types/database-config'
 
 import { error, enforceArray } from '../utils'
 

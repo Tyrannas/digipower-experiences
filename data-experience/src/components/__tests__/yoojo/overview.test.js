@@ -4,11 +4,11 @@
 
 import { mount } from '@vue/test-utils'
 import { vuetify } from '../vuetify.helpers'
-import { periodStore } from '@/components/chart/view/yoojo/store/periodStore'
+import { periodStore } from '@experiences/yoojo/src/views/store/periodStore'
 
 // (MonthlyCalendar is mocked above before importing OverView)
 
-import OverView from '@/components/chart/view/yoojo/OverView.vue'
+import OverView from '@experiences/yoojo/src/views/OverView.vue'
 
 /* --------------------------
  * Mocks
@@ -22,7 +22,7 @@ jest.mock('vue-apexcharts', () => ({
   }
 }))
 
-jest.mock('@/components/chart/view/yoojo/onboarding/yoojoTour', () => ({
+jest.mock('@experiences/yoojo/src/views/onboarding/yoojoTour', () => ({
   createYoojoTour: jest.fn(() => ({
     start: jest.fn(),
     next: jest.fn()
@@ -30,7 +30,7 @@ jest.mock('@/components/chart/view/yoojo/onboarding/yoojoTour', () => ({
 }))
 
 // Stub MonthlyCalendar module to avoid rendering complex calendar in unit tests
-jest.mock('@/components/chart/view/yoojo/MonthlyCalendar.vue', () => ({
+jest.mock('@experiences/yoojo/src/views/MonthlyCalendar.vue', () => ({
   __esModule: true,
   default: {
     name: 'MonthlyCalendar',
@@ -127,7 +127,7 @@ describe('OverView.vue (yoojo) - UI & interactions', () => {
     jest.clearAllMocks()
     localStorage.clear()
     // Reset periodStore to default to avoid state leak between tests
-    const { periodStore } = require('@/components/chart/view/yoojo/store/periodStore')
+    const { periodStore } = require('@experiences/yoojo/src/views/store/periodStore')
     periodStore.mode = 'month'
     periodStore.periodStart = null
     periodStore.periodEnd = null

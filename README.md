@@ -95,22 +95,9 @@ Every pull request runs [`.github/workflows/ci.yml`](.github/workflows/ci.yml). 
 cd packages && npm ci && npm test && npm run lint:all   # build, validate experience configs, lint
 cd ../data-experience && npm ci && npx vue-cli-service lint --no-fix && npm test
 cd ../experiences && npm ci --ignore-scripts && npm run lint
-cd .. && npm run check:viewer-sync
 ```
 
 The Playwright browser tests (`data-experience/e2e`) are not part of CI yet. They need the dev server and the bubble server running (`npm run dev` in `data-experience`).
-
-## Viewer JSON Sync Check
-
-Run this from the repository root to verify that files in `data-experience/public/*-viewer.json`
-match their counterparts in `packages/packages/experiences/*/src/*-viewer.json`:
-
-```sh
-npm run check:viewer-sync
-```
-
-The check fails on unexpected drift and allows explicit exceptions listed in
-`.viewer-sync-allowlist` (one basename per line).
 
 # Credits
 The Yoojo (formerly Babysits) and Uber Eats experiences have been developed by Serhii Moshtakov and Fabian Studer, students at FHNW University of Applied Sciences and Arts Northwestern Switzerland with Prof. Anton Fedosov. 

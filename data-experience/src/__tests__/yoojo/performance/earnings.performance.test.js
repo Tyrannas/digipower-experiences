@@ -4,7 +4,7 @@
 
 import { mount } from '@vue/test-utils'
 import dayjs from 'dayjs'
-import EarningsDistribution from '@/components/chart/view/yoojo/EarningsDistribution.vue'
+import EarningsDistribution from '@experiences/yoojo/src/views/EarningsDistribution.vue'
 
 // Stub ApexCharts
 jest.mock('vue-apexcharts', () => ({

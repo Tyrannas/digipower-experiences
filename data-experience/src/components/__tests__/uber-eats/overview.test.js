@@ -4,7 +4,7 @@
 
 import { mount } from '@vue/test-utils'
 import { vuetify } from '../vuetify.helpers'
-import Overview from '@/components/chart/view/uberEats/Overview.vue'
+import Overview from '@experiences/uber-eats/src/views/Overview.vue'
 
 /* --------------------------
  * Mocks
@@ -20,7 +20,7 @@ jest.mock('vue-apexcharts', () => ({
 }))
 
 // Mock periodStore (interaction only)
-jest.mock('@/components/chart/view/uberEats/store/periodStore', () => ({
+jest.mock('@experiences/uber-eats/src/views/store/periodStore', () => ({
   periodStore: {
     mode: 'week',
     periodStart: '2023-10-09T00:00:00.000Z',
@@ -32,7 +32,7 @@ jest.mock('@/components/chart/view/uberEats/store/periodStore', () => ({
 }))
 
 // Mock onboarding tour
-jest.mock('@/components/chart/view/uberEats/onboarding/tour', () => ({
+jest.mock('@experiences/uber-eats/src/views/onboarding/tour', () => ({
   createTour: jest.fn(() => ({
     start: jest.fn(),
     next: jest.fn()
@@ -145,7 +145,7 @@ describe('Overview.vue (Option A – UI & interactions)', () => {
     await btn.trigger('click')
 
     const { periodStore } =
-      require('@/components/chart/view/uberEats/store/periodStore')
+      require('@experiences/uber-eats/src/views/store/periodStore')
 
     expect(periodStore.setMode).toHaveBeenCalledWith('month')
   })
@@ -163,7 +163,7 @@ describe('Overview.vue (Option A – UI & interactions)', () => {
     await btn.trigger('click')
 
     const { periodStore } =
-      require('@/components/chart/view/uberEats/store/periodStore')
+      require('@experiences/uber-eats/src/views/store/periodStore')
 
     expect(periodStore.setMode).toHaveBeenCalledWith('total')
   })
@@ -181,7 +181,7 @@ describe('Overview.vue (Option A – UI & interactions)', () => {
     await navButtons.at(0).trigger('click')
 
     const { periodStore } =
-      require('@/components/chart/view/uberEats/store/periodStore')
+      require('@experiences/uber-eats/src/views/store/periodStore')
 
     expect(periodStore.setPeriod).toHaveBeenCalled()
   })
@@ -194,7 +194,7 @@ describe('Overview.vue (Option A – UI & interactions)', () => {
     mountOverview()
 
     const { periodStore } =
-      require('@/components/chart/view/uberEats/store/periodStore')
+      require('@experiences/uber-eats/src/views/store/periodStore')
 
     expect(periodStore.initFromTrips).toHaveBeenCalled()
   })

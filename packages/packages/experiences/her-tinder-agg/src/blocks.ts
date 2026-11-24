@@ -1,4 +1,4 @@
-import type { ViewBlocks } from '@/types'
+import type { ViewBlocks } from '@lib/types'
 
 import sqlAll from './sql/all.sql'
 import sqlAllPerApp from './sql/all-per-app.sql'
@@ -9,7 +9,7 @@ const blocks: ViewBlocks = [
     id: 'overview',
     sql: sqlAll,
     showTable: false,
-    visualization: 'ChartViewOverviewHerTinder.vue',
+    visualization: './views/ChartViewOverviewHerTinder.vue',
     title: 'Overview',
     text: 'Compare the activities of dating applications according to application and sexual orientation.'
   },

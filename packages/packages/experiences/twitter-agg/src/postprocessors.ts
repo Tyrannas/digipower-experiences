@@ -1,5 +1,5 @@
 /* eslint-disable no-prototype-builtins */
-import type { PostprocessorFunction } from '@/types'
+import type { PostprocessorFunction } from '@lib/types'
 import type { Dictionary } from 'lodash'
 
 export const toGraph: PostprocessorFunction = result => {

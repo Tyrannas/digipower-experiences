@@ -167,7 +167,7 @@
       "showTable": false,
       "id": "user",
       "sql": "SELECT * FROM TinderUser; ",
-      "visualization": "ChartViewTinderUserInfos.vue",
+      "visualization": "./views/ChartViewTinderUserInfos.vue",
       "title": "User infos",
       "text": "Tinder profile information",
       "files": ["tinder"]

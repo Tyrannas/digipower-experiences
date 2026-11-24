@@ -1,4 +1,4 @@
-import { PreprocessorFunction } from '@/types/experience-options'
+import { PreprocessorFunction } from '@lib/types/experience-options'
 
 const twitter: PreprocessorFunction = string => {
   try {

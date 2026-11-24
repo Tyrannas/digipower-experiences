@@ -122,7 +122,7 @@
       "id": "watchOverview",
       "customPipeline": "csv_viewing_activity",
       "files": ["viewing-activity"],
-      "visualization": "ChartViewOverviewNetflix.vue",
+      "visualization": "./views/ChartViewOverviewNetflix.vue",
       "title": "Viewing activity",
       "text": "Get an overview of how you use Netflix and what information is stored about you"
     },

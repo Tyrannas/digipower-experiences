@@ -23,9 +23,11 @@ export default {
   devServer: {
     ...base.devServer,
     port: 8081,
-    // the dev server needs a websocket for hot reload; the CSP of
-    // index.html is relaxed for it in development only
-    client: { overlay: { warnings: false } }
+    client: {
+      overlay: { warnings: false },
+      // hot reload websocket on the page's own origin, allowed by the CSP ('self')
+      webSocketURL: 'auto://0.0.0.0:0/ws'
+    }
   },
   chainWebpack: (config) => {
     // copy only the icons and the samples, not data-experience/public

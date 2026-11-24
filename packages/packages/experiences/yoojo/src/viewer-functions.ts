@@ -1,4 +1,4 @@
-import type { FileManager } from '@/types/utils'
+import type { FileManager } from '@lib/types/utils'
 
 async function csv_yoojo_jobs({ fileManager }: { fileManager: FileManager }) {
   const csv = (await fileManager.getCsvItemsFromId('jobs'))[0] ?? {

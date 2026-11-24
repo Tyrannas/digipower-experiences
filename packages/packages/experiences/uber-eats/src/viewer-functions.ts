@@ -1,4 +1,4 @@
-import type { FileManager } from '@/types/utils'
+import type { FileManager } from '@lib/types/utils'
 import {
   isoWeekday,
   localMillis,

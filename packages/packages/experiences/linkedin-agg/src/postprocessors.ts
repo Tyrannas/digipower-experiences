@@ -1,4 +1,4 @@
-import type { PostprocessorFunction } from '@/types'
+import type { PostprocessorFunction } from '@lib/types'
 import { mapValues } from 'lodash'
 
 // Convert the columns values separated by ';' to arrays

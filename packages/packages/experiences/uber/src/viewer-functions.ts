@@ -1,6 +1,6 @@
-import { customPipelineGetFirstCSV } from '@/pipelines/custom'
+import { customPipelineGetFirstCSV } from '@lib/pipelines/custom'
 import keplerConfig from './kepler-config'
-import type { FileManager, PipelineOutputItems } from '@/types/utils'
+import type { FileManager, PipelineOutputItems } from '@lib/types/utils'
 
 async function tripsGraphData(params: { fileManager: FileManager }) {
   const tripsData = (

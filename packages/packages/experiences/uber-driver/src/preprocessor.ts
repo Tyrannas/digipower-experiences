@@ -1,4 +1,4 @@
-import type { PipelineOutput } from '@/types/utils'
+import type { PipelineOutput } from '@lib/types/utils'
 
 export async function getMockupData(): Promise<PipelineOutput> {
   return {

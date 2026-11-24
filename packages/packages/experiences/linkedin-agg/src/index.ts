@@ -1,6 +1,6 @@
 import packageJSON from '../package.json'
 import viewerFunctions from './viewer-functions'
-import { Experience, LoaderOptions, ViewerOptions } from '@/index'
+import { Experience, LoaderOptions, ViewerOptions } from '@lib/index'
 import viewerOptions from './linkedin-agg-viewer.json'
 import databaseConfig from './database'
 

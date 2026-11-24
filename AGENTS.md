@@ -29,7 +29,7 @@ Re-running setup is quick: it skips `npm ci` in a folder whose lockfile (and Nod
 **Done means `npm test` passes and CI is green on the PR.** Run focused checks while iterating:
 
 - one experience's config: `cd packages && EXPERIENCES=<name> npm run build && npm run test:ts-node -- <name>` (`EXPERIENCES=a,b` builds only those; `npm test` needs a full build)
-- views, without building anything: `cd packages && npm run dev` (rebuilds on change) and `cd data-experience && npm run dev:app` (http://localhost:8080, hot reload); pick the experience in the dropdown and drop in a sample from `packages/lib/data-samples/`
+- views, without building anything: `cd data-experience && npm run offline:dev` (http://localhost:8081, hot reload, experiences compiled from their sources); see `data-experience/offline/README.md`
 - one Jest file: `cd data-experience && npx jest src/__tests__/<name>`
 - lint one file: `cd data-experience && npx eslint <file>`
 - golden tests (every tab's output on sample data, compared with snapshots): `cd data-experience && npm run test:golden`; after an intended change, `npm run test:golden -- -u` and explain the snapshot diff in the PR. See `data-experience/src/__tests__/golden/README.md`.
@@ -49,7 +49,7 @@ An experience is `packages/packages/experiences/<name>/`:
   - an `id`;
   - **either** `sql` (run on the database) **or** `customPipeline` (a function name from `viewer-functions.ts`, or a generic one from `data-experience/src/utils/generic-pipelines.js`);
   - optionally a `postprocessor`;
-  - a `visualization`: a Vue file under `data-experience/src/components/chart/view/` (e.g. `"ChartViewDashboard.vue"`, `"uberEats/Overview.vue"`, without a `view/` prefix), or an inline Vega spec;
+  - a `visualization`: a view of the experience itself, `"./views/<File>.vue"` (in `src/views/` of the experience), a shared Vue file under `data-experience/src/components/chart/view/` (e.g. `"ChartViewDashboard.vue"`, without a `view/` prefix), or an inline Vega spec;
   - `vizProps` for that component.
   - Text and translations go in `messages.{en,fr}` (format: `packages/MESSAGES_JSON.md`).
 - Every pipeline returns `{ headers, items }`.
@@ -59,7 +59,6 @@ An experience is `packages/packages/experiences/<name>/`:
 When you add an experience, also:
 - add it to `packages/packages.ts` (alphabetical; this is what `npm test` validates);
 - add it to `experiences/config/dev.json`;
-- keep `data-experience/public/<name>-viewer.json` identical to the package's copy (`npm run check:viewer-sync`), or list it in `.viewer-sync-allowlist`.
 
 ## Rules
 

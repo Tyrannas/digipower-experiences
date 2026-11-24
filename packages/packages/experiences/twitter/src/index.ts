@@ -1,6 +1,6 @@
 import packageJSON from '../package.json'
 import viewerFunctions from './viewer-functions'
-import { Experience, LoaderOptions, ViewerOptions } from '@/index'
+import { Experience, LoaderOptions, ViewerOptions } from '@lib/index'
 import viewerOptions from './twitter-viewer.json'
 import preprocessor from './preprocessor'
 import databaseConfig from './database'

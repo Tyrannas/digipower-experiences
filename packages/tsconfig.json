@@ -19,7 +19,7 @@
     // https://bobbyhadz.com/blog/typescript-cannot-find-module
     "moduleResolution": "node",
     "paths": {
-      "@/*": ["lib/*"]
+      "@lib/*": ["lib/*"]
     }
   },
   "ts-node": {

@@ -169,7 +169,7 @@ function migrateIndexTs(experienceName: string) {
     ...viewerOptionRegexes(),
     [
       /^import \{ Experience, ExperienceOptions \} from '@\/index'/g,
-      `import { Experience, LoaderOptions, ViewerOptions } from '@/index'
+      `import { Experience, LoaderOptions, ViewerOptions } from '@lib/index'
 import viewerOptions from './${experienceName}-viewer.json'`
     ],
     [/^import \{ .* \} from '@\/pipelines\/generic'/, ''],

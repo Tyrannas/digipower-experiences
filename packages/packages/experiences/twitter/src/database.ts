@@ -1,5 +1,5 @@
-import type { DatabaseConfig } from '@/types'
-import { SQLType } from '@/types/database-config'
+import type { DatabaseConfig } from '@lib/types'
+import { SQLType } from '@lib/types/database-config'
 
 const { TEXT, INTEGER, DATE } = SQLType
 

@@ -1,4 +1,4 @@
-import type { ViewBlocks } from '@/types'
+import type { ViewBlocks } from '@lib/types'
 import sqlMessages from './sql/messages.sql'
 
 const blocks: ViewBlocks = [

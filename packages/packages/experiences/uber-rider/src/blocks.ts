@@ -1,6 +1,6 @@
-import { customPipelineGetFirstCSV } from '@/pipelines/custom'
+import { customPipelineGetFirstCSV } from '@lib/pipelines/custom'
 import { getMockupData } from './preprocessor'
-import type { ViewBlocks } from '@/types'
+import type { ViewBlocks } from '@lib/types'
 import {
   driverTripsPostProcessor,
   driverHeatMapPostProcessor,

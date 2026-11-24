@@ -44,16 +44,14 @@ jobs:
           cache-dependency-path: |
             packages/package-lock.json
             data-experience/package-lock.json
-      # Jest resolves @hestia.ai/* to the locally built packages
-      - name: Build packages
+      # Jest compiles @hestia.ai/* from their sources, with the TypeScript tooling of packages/
+      - name: Install packages
         working-directory: packages
-        run: |
-          npm ci
-          npm run build
+        run: npm ci
       - working-directory: data-experience
         run: npm ci
       - working-directory: data-experience
-        run: npx vue-cli-service lint --no-fix
+        run: npx vue-cli-service lint --no-fix && npm run lint:experience-views
       - working-directory: data-experience
         run: npm test
 
@@ -73,13 +71,6 @@ jobs:
       # skip postinstall, which links or installs every experience package
       - run: npm ci --ignore-scripts
       - run: npm run lint
-
-  viewer-sync:
-    name: viewer JSON sync
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - run: bash ./scripts/check-viewer-sync.sh
 
   setup-scripts:
     name: npm run setup && npm test (agent entry point)

@@ -1,4 +1,4 @@
-import { customPipelineGetFirstCSV } from '@/pipelines/custom'
+import { customPipelineGetFirstCSV } from '@lib/pipelines/custom'
 const viewerFunctions = {
   postprocessors: {},
   customPipelines: {

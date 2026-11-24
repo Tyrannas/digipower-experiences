@@ -1,4 +1,4 @@
-import type { ViewBlocks } from '@/types'
+import type { ViewBlocks } from '@lib/types'
 import loginhistory from './sql/login-history.sql'
 import activityhistory from './sql/activity-history.sql'
 import followingfollower from './sql/following-vs-follower.sql'

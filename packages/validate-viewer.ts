@@ -52,17 +52,19 @@ function check(path: string): { errors: string[]; warnings: string[] } {
   for (const { id, sql, customPipeline, visualization } of viewBlocks) {
     if (ids.has(id)) errors.push(`duplicate view block id "${id}"`)
     ids.add(id)
-    if (
-      typeof visualization === 'string' &&
-      visualization.endsWith('.vue') &&
-      !existsSync(join(viewComponentsDir, visualization))
-    ) {
-      errors.push(
-        `view block "${id}": visualization ${visualization} not found in ${relative(
-          packagesDir,
-          viewComponentsDir
-        )}`
-      )
+    if (typeof visualization === 'string' && visualization.endsWith('.vue')) {
+      // "./views/X.vue" is a view of the experience (next to its viewer JSON),
+      // any other name a shared view of data-experience
+      const ownView = visualization.startsWith('./views/')
+      const dir = ownView ? dirname(path) : viewComponentsDir
+      if (!existsSync(join(dir, visualization))) {
+        errors.push(
+          `view block "${id}": visualization ${visualization} not found in ${relative(
+            packagesDir,
+            dir
+          )}`
+        )
+      }
     }
     if (sql && customPipeline) {
       warnings.push(

@@ -4,8 +4,8 @@
 
 import { mount } from '@vue/test-utils'
 import dayjs from 'dayjs'
-import Earnings from '@/components/chart/view/uberEats/ServiceRevenues.vue'
-import { periodStore } from '@/components/chart/view/uberEats/store/periodStore'
+import Earnings from '@experiences/uber-eats/src/views/ServiceRevenues.vue'
+import { periodStore } from '@experiences/uber-eats/src/views/store/periodStore'
 
 jest.mock('@/components/chart/view/mixin', () => ({
   methods: {

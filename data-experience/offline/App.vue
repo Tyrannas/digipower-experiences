@@ -40,15 +40,17 @@
 </template>
 
 <script>
-// Every experience package built in ../../packages/packages/experiences/<name>/dist
-// becomes a lazily loaded chunk of this app: adding an experience needs no registration here.
-const experienceFiles = require.context(
-  '../../packages/packages/experiences',
-  true,
-  /^\.\/[^/]+\/dist\/index\.mjs$/,
-  'lazy'
+// Every folder packages/packages/experiences/<name>/ with a src/index.ts is an
+// experience, compiled into a lazily loaded chunk: no registration needed here.
+// (import.meta.webpackContext, not require.context: this package is an ES module)
+const experienceFiles = import.meta.webpackContext('../../packages/packages/experiences', {
+  recursive: true,
+  regExp: /^\.\/[^/]+\/src\/index\.ts$/,
+  mode: 'lazy'
+})
+const experienceLoaders = Object.fromEntries(
+  experienceFiles.keys().map(key => [key.split('/')[1], () => experienceFiles(key)])
 )
-const slugOf = key => key.split('/')[1]
 
 // The viewer JSON files point to icons and samples on GitHub; the build copies
 // them next to the app (offline/vue.config.js), so rewrite the URLs to local ones.
@@ -68,11 +70,11 @@ function localiseUrls(value) {
 }
 
 async function loadExperience(slug) {
-  const key = experienceFiles.keys().find(k => slugOf(k) === slug)
-  if (!key) {
+  const load = experienceLoaders[slug]
+  if (!load) {
     return undefined
   }
-  const experience = (await experienceFiles(key)).default
+  const experience = (await load()).default
   // experience.config is rebuilt from viewerOptions on each access
   localiseUrls(experience.viewerOptions)
   return experience
@@ -112,7 +114,6 @@ export default {
       blocked: [],
       siteConfig: {
         i18nLocales: ['fr', 'en'],
-        experienceViewerOptions: '',
         theme: { primary: '#0C2D48', secondary: '#2E8BC0' }
       }
     }
@@ -151,7 +152,7 @@ export default {
       }
     },
     async buildCatalogue() {
-      const slugs = experienceFiles.keys().map(slugOf)
+      const slugs = Object.keys(experienceLoaders)
       const loaded = await Promise.all(slugs.map(loadExperience))
       this.catalogue = loaded
         .filter(e => e && !e.config.slug.endsWith('-agg'))

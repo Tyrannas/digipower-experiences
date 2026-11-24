@@ -1,12 +1,12 @@
-import type { ViewBlocks } from '@/types'
-import { genericDateViewer } from '@/pipelines/generic'
+import type { ViewBlocks } from '@lib/types'
+import { genericDateViewer } from '@lib/pipelines/generic'
 
 const blocks: ViewBlocks = [
   {
     id: 'watchOverview',
     customPipeline: 'csv_viewing_activity',
     files: ['viewing-activity'],
-    visualization: 'ChartViewOverviewNetflix.vue',
+    visualization: './views/ChartViewOverviewNetflix.vue',
     title: 'Viewing activity',
     text: 'Get an overview of how you use Netflix and what information is stored about you'
   },

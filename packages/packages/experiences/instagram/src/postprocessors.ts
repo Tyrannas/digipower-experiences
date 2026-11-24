@@ -1,5 +1,5 @@
-import type { PostprocessorFunction } from '@/types'
-import { dateFormatter } from '@/utils'
+import type { PostprocessorFunction } from '@lib/types'
+import { dateFormatter } from '@lib/utils'
 export const makeSessions: PostprocessorFunction = result => {
   const items = result?.items || []
   if (items.length === 0) {

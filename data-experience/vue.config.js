@@ -11,11 +11,17 @@ const require = createRequire(import.meta.url)
 
 const isDev = process.env.NODE_ENV === 'development'
 
-// resolve every @hestia.ai/<experience> import to the local monorepo package
-const experiencesDir = path.resolve(__dirname, '../packages/packages/experiences')
+// Experiences are compiled from their TypeScript sources by this build:
+// no separate build of packages/, no dist/ to keep in sync.
+const packagesDir = path.resolve(__dirname, '../packages')
+const experiencesDir = path.join(packagesDir, 'packages/experiences')
 const experienceAliases = Object.fromEntries(
-  readdirSync(experiencesDir).map(name => [`@hestia.ai/${name}`, path.join(experiencesDir, name)])
+  readdirSync(experiencesDir).map(name => [`@hestia.ai/${name}$`, path.join(experiencesDir, name, 'src/index.ts')])
 )
+// TypeScript is only stripped (babel); type checking: `npx tsc --noEmit` in packages/
+const requireFromPackages = createRequire(path.join(packagesDir, 'package.json'))
+const presetTypescript = requireFromPackages.resolve('@babel/preset-typescript')
+const babelLoader = requireFromPackages.resolve('babel-loader')
 
 export default defineConfig({
   publicPath: isDev ? '/' : './',
@@ -32,8 +38,13 @@ export default defineConfig({
         picomatch: 'picomatch-browser',
         // the package's "exports" hide its locale files; they are bundled, not fetched from a CDN
         'd3-time-format-locale': path.join(path.dirname(require.resolve('d3-time-format')), '../locale'),
+        '@lib': path.join(packagesDir, 'lib'),
+        '@experiences': experiencesDir,
         ...experienceAliases
       },
+      extensions: ['.ts'],
+      // files under packages/ use this app's copy of shared libraries (one Vue, one d3, ...)
+      modules: [path.resolve(__dirname, 'node_modules'), 'node_modules'],
       fallback: {
         fs: false,
         crypto: false, // require.resolve("crypto-browserify") to add polyfill
@@ -43,6 +54,21 @@ export default defineConfig({
     },
     module: {
       rules: [
+        {
+          test: /\.ts$/,
+          include: packagesDir,
+          exclude: /node_modules/,
+          use: [{ loader: babelLoader, options: { presets: [presetTypescript], babelrc: false, configFile: false } }]
+        },
+        {
+          test: /\.(sql|vega)$/,
+          type: 'asset/source'
+        },
+        {
+          include: path.join(packagesDir, 'lib/data-samples'),
+          type: 'asset/resource',
+          generator: { filename: 'data-samples/[name][ext]?filename=[name][ext]' }
+        },
         {
           // sql.js engine, served next to the app instead of a CDN
           test: /sql-wasm\.wasm$/,

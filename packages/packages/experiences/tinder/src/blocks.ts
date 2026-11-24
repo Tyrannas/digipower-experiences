@@ -1,4 +1,4 @@
-import type { ViewBlocks } from '@/types'
+import type { ViewBlocks } from '@lib/types'
 
 import sqlAll from './sql/all.sql'
 import sqlAppOpens from './sql/app-opens.sql'
@@ -18,7 +18,7 @@ const blocks: ViewBlocks = [
   {
     id: 'user',
     sql: sqlUser,
-    visualization: 'ChartViewTinderUserInfos.vue',
+    visualization: './views/ChartViewTinderUserInfos.vue',
     title: 'User infos',
     text: 'Tinder profile information'
   },

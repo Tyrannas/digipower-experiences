@@ -4,7 +4,7 @@
 
 import { mount } from '@vue/test-utils'
 import { vuetify } from '../vuetify.helpers'
-import ActivityTypes from '@/components/chart/view/yoojo/ActivityTypes.vue'
+import ActivityTypes from '@experiences/yoojo/src/views/ActivityTypes.vue'
 
 /* --------------------------
  * Mocks
@@ -86,7 +86,7 @@ describe('ActivityTypes.vue - UI & interactions', () => {
   beforeEach(() => {
     jest.clearAllMocks()
     // Reset periodStore between tests
-    const { periodStore } = require('@/components/chart/view/yoojo/store/periodStore')
+    const { periodStore } = require('@experiences/yoojo/src/views/store/periodStore')
     periodStore.mode = 'week'
     periodStore.periodStart = null
     periodStore.periodEnd = null

@@ -4,7 +4,7 @@
 
 import { mount } from '@vue/test-utils'
 import { vuetify } from '../vuetify.helpers'
-import EarningsDistribution from '@/components/chart/view/yoojo/EarningsDistribution.vue'
+import EarningsDistribution from '@experiences/yoojo/src/views/EarningsDistribution.vue'
 
 /* --------------------------
  * Mocks
@@ -91,7 +91,7 @@ describe('EarningsDistribution.vue - UI & interactions', () => {
   beforeEach(() => {
     jest.clearAllMocks()
     // Reset periodStore between tests
-    const { periodStore } = require('@/components/chart/view/yoojo/store/periodStore')
+    const { periodStore } = require('@experiences/yoojo/src/views/store/periodStore')
     periodStore.mode = 'week'
     periodStore.periodStart = null
     periodStore.periodEnd = null

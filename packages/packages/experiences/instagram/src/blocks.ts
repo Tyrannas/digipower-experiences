@@ -1,4 +1,4 @@
-import type { ViewBlocks } from '@/types'
+import type { ViewBlocks } from '@lib/types'
 
 import sqlViews from './sql/views.sql'
 import sqlInteractions from './sql/interactions.sql'
@@ -9,7 +9,7 @@ import sqlPostsAndStories from './sql/posts-and-stories.sql'
 
 import sqlTime from './sql/time.sql'
 
-import { genericDateViewer } from '@/pipelines/generic'
+import { genericDateViewer } from '@lib/pipelines/generic'
 
 import keplerConfigPublications from './kepler/kepler_config_publications'
 

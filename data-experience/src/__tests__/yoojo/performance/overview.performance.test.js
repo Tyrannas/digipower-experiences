@@ -4,11 +4,11 @@
 
 import { mount } from '@vue/test-utils'
 import dayjs from 'dayjs'
-import OverView from '@/components/chart/view/yoojo/OverView.vue'
-import MonthlyCalendar from '@/components/chart/view/yoojo/MonthlyCalendar.vue'
+import OverView from '@experiences/yoojo/src/views/OverView.vue'
+import MonthlyCalendar from '@experiences/yoojo/src/views/MonthlyCalendar.vue'
 
 // Mock the tour
-jest.mock('@/components/chart/view/yoojo/onboarding/yoojoTour', () => ({
+jest.mock('@experiences/yoojo/src/views/onboarding/yoojoTour', () => ({
   createYoojoTour: () => ({ start: jest.fn() })
 }))
 

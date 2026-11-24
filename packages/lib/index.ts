@@ -1,17 +1,25 @@
-import type { ViewBlock } from '@/types'
+import type { ViewBlock } from '@lib/types'
 import type {
   ExperienceViewerOptionsMap as ViewerOptionsMap,
   Lang,
   Messages,
   ViewerFunctions
-} from '@/types/experience-options'
+} from '@lib/types/experience-options'
 
 // https://javascript.plainenglish.io/leveraging-type-only-imports-and-exports-with-typescript-3-8-5c1be8bd17fb
-import type { ExperienceOptions, LoaderOptions, ViewerOptions } from '@/types'
-export type { ExperienceOptions, LoaderOptions, ViewerOptions } from '@/types'
+import type {
+  ExperienceOptions,
+  LoaderOptions,
+  ViewerOptions
+} from '@lib/types'
+export type {
+  ExperienceOptions,
+  LoaderOptions,
+  ViewerOptions
+} from '@lib/types'
 
 // import { merge } from 'lodash'
-import genericViewerMessages from '@/pipelines/messages'
+import genericViewerMessages from '@lib/pipelines/messages'
 
 const defaultViewBlock: Partial<ViewBlock> = {
   showTable: false

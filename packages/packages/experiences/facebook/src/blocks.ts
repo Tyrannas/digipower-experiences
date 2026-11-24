@@ -1,4 +1,4 @@
-import type { ViewBlocks } from '@/types'
+import type { ViewBlocks } from '@lib/types'
 
 import sqlOffFacebookActivityCount from './sql/off-facebook-activity-count.sql'
 import sqlOffFacebookActivityTypeCount from './sql/off-facebook-activity-type-count.sql'
@@ -8,7 +8,7 @@ import sqlAdvertisersContactList from './sql/advertisers-contact-list.sql'
 import sqlCustomAudiences from './sql/custom-audiences.sql'
 
 import { sunburstTargetingAdvertiser } from './postprocessors'
-import { genericViewers } from '@/pipelines/generic'
+import { genericViewers } from '@lib/pipelines/generic'
 
 const blocks: ViewBlocks = [
   {

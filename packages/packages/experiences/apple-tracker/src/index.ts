@@ -1,5 +1,5 @@
 import packageJSON from '../package.json'
-import { Experience, LoaderOptions, ViewerOptions } from '@/index'
+import { Experience, LoaderOptions, ViewerOptions } from '@lib/index'
 import viewerOptions from './apple-tracker-viewer.json'
 import databaseConfig from './database'
 import ndjsonToJson from './preprocessor'

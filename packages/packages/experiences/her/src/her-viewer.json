@@ -28,7 +28,7 @@
       "id": "profiles",
       "sql": "SELECT * FROM HerProfile; ",
       "files": ["profiles"],
-      "visualization": "ChartViewHerUserInfos.vue",
+      "visualization": "./views/ChartViewHerUserInfos.vue",
       "title": "User Infos",
       "text": "HER profile information"
     },
@@ -80,7 +80,7 @@
       "id": "matches",
       "sql": "SELECT * FROM HerLike; ",
       "files": ["liked"],
-      "visualization": "ChartViewOverviewHer.vue",
+      "visualization": "./views/ChartViewOverviewHer.vue",
       "title": "Matches",
       "text": "Look at the likes you've made that have become matches or not."
     },
@@ -89,7 +89,7 @@
       "id": "messages",
       "sql": "SELECT * FROM HerMessage; ",
       "files": ["messages"],
-      "visualization": "ChartViewHerMessageActivity.vue",
+      "visualization": "./views/ChartViewHerMessageActivity.vue",
       "vizProps": {
         "dateAccessor": "messageSentAt"
       },

@@ -1,9 +1,9 @@
-import type { DatabaseConfig } from '@/types'
+import type { DatabaseConfig } from '@lib/types'
 import {
   SQLType,
   JSONPathResultType,
   JSONPathReturnObject
-} from '@/types/database-config'
+} from '@lib/types/database-config'
 
 const { TEXT } = SQLType
 

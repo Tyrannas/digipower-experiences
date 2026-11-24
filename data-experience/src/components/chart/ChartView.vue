@@ -16,6 +16,12 @@
 
 <script>
 import DataValidator from '@/components/misc/DataValidator.vue'
+import { MODULE_NAME } from '@/utils/store-helper'
+
+// A visualization is either a shared view of this folder ("ChartViewBar.vue")
+// or a view of the experience itself ("./views/Overview.vue"), stored in
+// packages/packages/experiences/<experience>/src/views/.
+const experienceViewPrefix = './views/'
 
 export default {
   name: 'ChartView',
@@ -31,8 +37,17 @@ export default {
     }
   },
   computed: {
+    experienceSlug() {
+      return this.$store?.state?.[MODULE_NAME]?.experienceConfig?.slug
+    },
     component() {
-      return () => import(`./view/${this.graphName}`)
+      const name = this.graphName
+      if (name.startsWith(experienceViewPrefix)) {
+        const file = name.slice(experienceViewPrefix.length)
+        const slug = this.experienceSlug
+        return () => import(`@experiences/${slug}/src/views/${file}`)
+      }
+      return () => import(`./view/${name}`)
     }
   }
 }

@@ -1,4 +1,4 @@
-import type { PostprocessorFunction } from '@/types'
+import type { PostprocessorFunction } from '@lib/types'
 
 export const sunburstTargeting: PostprocessorFunction = result => {
   // TODO generalize this...

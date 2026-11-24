@@ -314,7 +314,7 @@
       "id": "messenger",
       "customPipeline": "messenger",
       "files": ["messenger"],
-      "visualization": "facebook/MessengerTab.vue",
+      "visualization": "./views/MessengerTab.vue",
       "showTable": false,
       "exportDefaultOff": ["deletedAccounts/conversations", "ids"],
       "title": "Messenger",

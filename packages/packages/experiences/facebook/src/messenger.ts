@@ -1,4 +1,4 @@
-import type { FileManager } from '@/types/utils'
+import type { FileManager } from '@lib/types/utils'
 
 // Messenger conversations, read from JSON or HTML exports.
 // Each conversation is a folder messages/<folder>/<thread>/ holding

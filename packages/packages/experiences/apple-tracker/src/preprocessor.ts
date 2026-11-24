@@ -1,4 +1,4 @@
-import { PreprocessorFunction } from '@/types/experience-options'
+import { PreprocessorFunction } from '@lib/types/experience-options'
 
 const ndjsonToJson: PreprocessorFunction = string => {
   const commatize = string.replace(/\n/g, ',')

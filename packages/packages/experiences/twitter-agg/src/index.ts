@@ -1,5 +1,5 @@
 import packageJSON from '../package.json'
-import { Experience, LoaderOptions, ViewerOptions } from '@/index'
+import { Experience, LoaderOptions, ViewerOptions } from '@lib/index'
 import viewerOptions from './twitter-agg-viewer.json'
 import preprocessor from './preprocessor'
 import databaseConfig from './database'

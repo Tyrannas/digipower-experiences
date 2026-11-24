@@ -3,7 +3,7 @@
  */
 
 import { shallowMount } from '@vue/test-utils'
-import MyTrips from '@/components/chart/view/uberEats/MyTrips.vue'
+import MyTrips from '@experiences/uber-eats/src/views/MyTrips.vue'
 
 /* -----------------------------------------------------
  * Mocks
@@ -13,7 +13,7 @@ jest.mock('@turf/turf')
 jest.mock('@turf/bbox')
 
 // Mock periodStore
-jest.mock('@/components/chart/view/uberEats/store/periodStore', () => ({
+jest.mock('@experiences/uber-eats/src/views/store/periodStore', () => ({
   periodStore: {
     mode: 'week',
     periodStart: '2023-10-09T00:00:00.000Z',

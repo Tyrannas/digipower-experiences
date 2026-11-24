@@ -115,7 +115,7 @@
           "type": "string"
         },
         "visualization": {
-          "description": "A Vue component under data-experience/src/components/chart/view/ (e.g. \"ChartViewDashboard.vue\"), a Kepler map (\"/kepler...\"), or an inline Vega specification.",
+          "description": "A shared Vue component under data-experience/src/components/chart/view/ (e.g. \"ChartViewDashboard.vue\"), a view of this experience under src/views/ (\"./views/Overview.vue\"), a map (\"/kepler...\"), or an inline Vega specification.",
           "oneOf": [
             { "type": "string", "pattern": "(\\.vue$)|(^/kepler)" },
             { "type": "object" }

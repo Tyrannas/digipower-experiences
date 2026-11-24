@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable no-prototype-builtins */
-import type { PostprocessorFunction } from '@/types'
+import type { PostprocessorFunction } from '@lib/types'
 
 import { groupBy, sortBy } from 'lodash'
 import createGraph from 'ngraph.graph'
 import centrality from 'ngraph.centrality'
-import { PipelineOutput } from '@/types/utils'
+import { PipelineOutput } from '@lib/types/utils'
 
 function pruneGraph(
   result: PipelineOutput,

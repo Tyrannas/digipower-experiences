@@ -1,5 +1,5 @@
 /* eslint-disable no-empty */
-import { PreprocessorFunction } from '@/types/experience-options'
+import { PreprocessorFunction } from '@lib/types/experience-options'
 
 // https://stackoverflow.com/q/17057407/8238129
 function convertHexToString(input: string) {
