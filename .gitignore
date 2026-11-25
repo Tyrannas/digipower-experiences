@@ -1,12 +1,13 @@
-/.log/
-
-# MAC Files
-.DS_STORE
-
-/node_modules
-/data-experience/.log/
-/data-experience/demo/
+node_modules/
+/dist/
+/test-results/
+/playwright-report/
+.eslintcache
 .env
+.env.*
+*.log
+.DS_Store
+.idea/
 
 # Real data exports for local development (see AGENTS.md)
 experience-intake/inbox/*

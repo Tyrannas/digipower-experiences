@@ -1,0 +1,80 @@
+{
+  "title": "Yoojo",
+  "icon": "./icons/yoojo.png",
+  "credits": "Developed by Serhii Moshtakov and Fabian Studer, students at <a href=\"https://www.fhnw.ch\" target=\"_blank\" rel=\"noopener noreferrer\">FHNW University of Applied Sciences and Arts Northwestern Switzerland</a>, with Prof. Anton Fedosov. Improved under the SPARK project “Participatory Methodology for AI Accountability in the Gig Economy” (Principal Investigator: Jessica Pidoux, University of Neuchâtel).",
+  "messages": {
+    "en": {
+      "viewBlocks": {}
+    },
+    "fr": {
+      "intro": {
+        "credits": "Développée par Serhii Moshtakov et Fabian Studer, étudiants de la <a href=\"https://www.fhnw.ch\" target=\"_blank\" rel=\"noopener noreferrer\">Haute école spécialisée du Nord-Ouest de la Suisse (FHNW)</a>, avec le Prof. Anton Fedosov. Améliorée dans le cadre du projet SPARK « Participatory Methodology for AI Accountability in the Gig Economy » (requérante principale : Jessica Pidoux, Université de Neuchâtel)."
+      },
+      "viewBlocks": {
+        "effectiveWork": {
+          "title": "Travail effectif",
+          "text": "Quelle part de vos efforts sur Yoojo devient du travail payé : les missions (et les heures) auxquelles vous avez postulé, comparées à celles qu'un client a réservées, au total et par catégorie. Le taux de réservation est le nombre de missions réservées divisé par le nombre de missions postulées.",
+          "vizProps": {
+            "messages": {
+              "jobsApplied": "Missions postulées",
+              "jobsBooked": "Missions réservées",
+              "bookingRate": "Taux de réservation",
+              "hoursApplied": "Heures postulées",
+              "hoursBooked": "Heures réservées",
+              "jobsTitle": "Missions par catégorie",
+              "hoursTitle": "Heures par catégorie",
+              "applied": "Postulées",
+              "booked": "Réservées",
+              "uncategorised": "Sans catégorie",
+              "definitions": "Chaque mission de l'export compte comme postulée. Une mission compte comme réservée quand le client l'a réservée.",
+              "withoutHours": "{n} missions n'ont pas de nombre d'heures et ne sont pas comptées dans les heures.",
+              "bookedCanceled": "{n} missions réservées ont été annulées ensuite ; elles comptent quand même comme réservées."
+            }
+          }
+        }
+      }
+    }
+  },
+  "viewBlocks": [
+    {
+      "showTable": false,
+      "id": "shiftTimeline",
+      "customPipeline": "csv_yoojo_jobs",
+      "files": ["jobs"],
+      "visualization": "./views/OverView.vue",
+      "title": "Shift Timeline",
+      "text": "Overview of your Yoojo jobs over time."
+    },
+    {
+      "showTable": false,
+      "id": "activityTypes",
+      "customPipeline": "csv_yoojo_jobs",
+      "files": ["jobs"],
+      "visualization": "./views/ActivityTypes.vue",
+      "title": "Activity Types",
+      "text": "Activity types over time."
+    },
+    {
+      "showTable": false,
+      "id": "earningsDistribution",
+      "customPipeline": "csv_yoojo_jobs",
+      "files": ["jobs"],
+      "visualization": "./views/EarningsDistribution.vue",
+      "title": "Earnings Distribution",
+      "text": "Earnings over time."
+    },
+    {
+      "showTable": false,
+      "id": "effectiveWork",
+      "customPipeline": "yoojo_effective_work",
+      "files": ["jobs"],
+      "visualization": "./views/EffectiveWork.vue",
+      "title": "Effective work",
+      "text": "How much of your effort on Yoojo turns into paid work: the jobs (and hours) you applied for, compared with those a client booked, overall and by category. The booking rate is jobs booked divided by jobs applied for."
+    }
+  ],
+  "dataSamples": [
+    "./data-samples/yoojo-sample.zip?contenthash=540b127f5a592687411c4352bef711c935ad41e226822e69ac42fe4d6a3855c6&filename=yoojo-sample.zip"
+  ],
+  "version": 1
+}

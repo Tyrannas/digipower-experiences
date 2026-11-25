@@ -3,119 +3,35 @@ name: CI
 on:
   pull_request:
   push:
-    branches: [master]
+    branches: [master, main]
 
 concurrency:
-  group: ci-${{ github.ref }}
+  group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 permissions:
   contents: read
 
 jobs:
-  packages:
-    name: packages (lint, build, validate)
+  check:
+    name: lint, types, tests, build, zero-network test
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: packages
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
           cache: npm
-          cache-dependency-path: packages/package-lock.json
       - run: npm ci
-      # builds every experience package, then validates its configuration
-      - run: npm test
-      # after the build: packages.ts imports the built dist files
-      - run: npm run lint:all
-
-  data-experience:
-    name: data-experience (lint, unit tests)
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version-file: .nvmrc
-          cache: npm
-          cache-dependency-path: |
-            packages/package-lock.json
-            data-experience/package-lock.json
-      # Jest compiles @hestia.ai/* from their sources, with the TypeScript tooling of packages/
-      - name: Install packages
-        working-directory: packages
-        run: npm ci
-      - working-directory: data-experience
-        run: npm ci
-      - working-directory: data-experience
-        run: npx vue-cli-service lint --no-fix && npm run lint:experience-views
-      - working-directory: data-experience
-        run: npm test
-
-  experiences:
-    name: experiences (lint)
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: experiences
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version-file: .nvmrc
-          cache: npm
-          cache-dependency-path: experiences/package-lock.json
-      # skip postinstall, which links or installs every experience package
-      - run: npm ci --ignore-scripts
       - run: npm run lint
-
-  setup-scripts:
-    name: npm run setup && npm test (agent entry point)
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version-file: .nvmrc
-          cache: npm
-          cache-dependency-path: |
-            packages/package-lock.json
-            data-experience/package-lock.json
-      - run: npm run setup
+      - run: npm run typecheck
       - run: npm test
-
-  visual:
-    name: visual (screenshots of every tab)
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - run: npm run build
+      - run: npx playwright install --with-deps chromium
+      # every experience with a sample, every tab: fails on any request to another server
+      - run: npm run test:offline
+      # the app, ready to unzip and serve
+      - uses: actions/upload-artifact@v4
         with:
-          node-version-file: .nvmrc
-          cache: npm
-          cache-dependency-path: |
-            packages/package-lock.json
-            data-experience/package-lock.json
-      # the dev app imports every experience package
-      - name: Build packages
-        working-directory: packages
-        run: |
-          npm ci
-          npm run build
-      - working-directory: data-experience
-        run: npm ci
-      # starts the dev app, then compares the screenshots in the Playwright Docker image
-      - run: bash ./scripts/visual-tests.sh
-      - name: Upload the differences
-        if: failure()
-        uses: actions/upload-artifact@v4
-        with:
-          name: visual-differences
-          path: |
-            data-experience/test-results/
-            data-experience/playwright-report/
-            data-experience/visual-dev-app.log
-          retention-days: 14
+          name: data-experiences
+          path: dist/
