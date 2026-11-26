@@ -1,10 +1,207 @@
 {
+  "name": "data-experiences",
+  "private": true,
+  "description": "Explore the personal data platforms collect on you, entirely in your browser",
+  "license": "AGPL-3.0-or-later",
+  "type": "module",
+  "engines": {
+    "node": ">=22",
+    "npm": ">=10"
+  },
   "scripts": {
-    "setup": "bash ./scripts/setup.sh",
-    "test": "bash ./scripts/test.sh",
-    "check:viewer-sync": "bash ./scripts/check-viewer-sync.sh"
+    "dev": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "test": "jest",
+    "test:golden": "jest src/__tests__/golden",
+    "test:offline": "playwright test",
+    "lint": "eslint --ext .js,.vue,.ts app src lib experiences e2e",
+    "typecheck": "tsc --noEmit",
+    "check": "npm run lint && npm run typecheck && npm test",
+    "perf:ubereats": "cross-env RUN_PERF=true jest src/__tests__/uber-eats/performance --runInBand",
+    "perf:yoojo": "cross-env RUN_PERF=true jest src/__tests__/yoojo/performance --runInBand",
+    "perf:all": "cross-env RUN_PERF=true jest \"src/__tests__/(uber-eats|yoojo)/performance\" --runInBand",
+    "i18n:report": "vue-cli-service i18n:report --src \"./src/**/*.?(js|vue)\" --locales \"./src/locales/**/*.json\""
   },
   "dependencies": {
-    "shepherd.js": "^14.5.1"
+    "@turf/turf": "^7.3.2",
+    "@uppy/core": "^2.0.2",
+    "@uppy/dashboard": "^2.3.0",
+    "@uppy/drop-target": "^1.1.3",
+    "@uppy/locales": "^2.1.1",
+    "core-js": "^3.26.0",
+    "crossfilter2": "^1.5.4",
+    "d3": "^7.6.1",
+    "d3-collection": "^1.0.7",
+    "d3-force-boundary": "^0.0.3",
+    "d3-sankey": "^0.12.3",
+    "d3-time-format": "^4.1.0",
+    "dayjs": "^1.11.19",
+    "dc": "^4.2.7",
+    "dom-to-image-more": "^2.11.1",
+    "jsonpath-plus": "^7.1.0",
+    "jszip": "^3.10.1",
+    "libsodium-wrappers": "^0.7.10",
+    "lodash": "^4.17.21",
+    "lodash-es": "^4.17.21",
+    "maplibre-gl": "^5.16.0",
+    "micromatch": "^4.0.5",
+    "ngraph.centrality": "^2.1.0",
+    "ngraph.graph": "^20.0.1",
+    "panzoom": "^9.4.3",
+    "papaparse": "^5.3.2",
+    "path-browserify": "^1.0.1",
+    "picomatch-browser": "^2.2.6",
+    "read-excel-file": "^5.5.0",
+    "share-api-polyfill": "^1.1.0",
+    "shepherd.js": "^14.5.1",
+    "spark-md5": "^3.0.2",
+    "type-analyzer": "^0.4.0",
+    "util": "^0.12.4",
+    "vega": "^5.22.1",
+    "vega-embed": "^6.21.0",
+    "vega-lite": "^5.1.1",
+    "vue": "^2.7.14",
+    "vue-apexcharts": "^1.7.0",
+    "vue-i18n": "^8.27.2",
+    "vue2-ace-editor": "^0.0.15",
+    "vuetify": "^2.6.7",
+    "vuex": "^3.6.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.16",
+    "@babel/eslint-parser": "^7.12.16",
+    "@babel/preset-env": "^7.19.4",
+    "@babel/preset-typescript": "^7.18.6",
+    "@fontsource/roboto": "5.1.0",
+    "@intlify/vue-i18n-loader": "^1.1.0",
+    "@mdi/js": "^7.0.96",
+    "@playwright/test": "^1.65.1",
+    "@types/d3": "7.4.0",
+    "@types/lodash": "4.14.191",
+    "@types/node": "^18.11.10",
+    "@typescript-eslint/eslint-plugin": "~5.30.7",
+    "@typescript-eslint/parser": "~5.30.7",
+    "@vue/cli-plugin-eslint": "~5.0.0",
+    "@vue/cli-service": "~5.0.0",
+    "@vue/test-utils": "^1.3.0",
+    "@vue/vue2-jest": "^27.0.0-alpha.3",
+    "ajv": "^8.11.2",
+    "babel-loader": "^8.3.0",
+    "babel-plugin-transform-import-meta": "^2.2.0",
+    "copy-webpack-plugin": "^9.1.0",
+    "cross-env": "^7.0.3",
+    "eslint": "^8.23.1",
+    "eslint-config-prettier": "~8.5.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-n": "^15.2.5",
+    "eslint-plugin-prettier": "~4.2.1",
+    "eslint-plugin-promise": "^6.0.1",
+    "eslint-plugin-vue": "^9.4.0",
+    "file-loader": "^6.2.0",
+    "jest": "^27.3.1",
+    "jest-canvas-mock": "^2.4.0",
+    "prettier": "^2.7.1",
+    "regenerator-runtime": "^0.13.9",
+    "resize-observer-polyfill": "^1.5.1",
+    "sass": "~1.32.13",
+    "sass-loader": "^10.3.1",
+    "sql.js": "^1.8.0",
+    "typescript": "^4.9.3",
+    "vue-cli-plugin-i18n": "~2.3.1",
+    "vue-cli-plugin-vuetify": "~2.5.8",
+    "worker-loader": "^3.0.8"
+  },
+  "jest": {
+    "testEnvironment": "jsdom",
+    "globalSetup": "./jest.global-setup.cjs",
+    "setupFiles": [
+      "jest-canvas-mock"
+    ],
+    "setupFilesAfterEnv": [
+      "./jest.setup.js"
+    ],
+    "moduleNameMapper": {
+      "^@/(.*)$": "<rootDir>/src/$1",
+      "^~/(.*)$": "<rootDir>/src/$1",
+      "^@lib/(.*)$": "<rootDir>/lib/$1",
+      "^@experiences/(.*)$": "<rootDir>/experiences/$1",
+      "^d3-time-format-locale/(.*)$": "<rootDir>/node_modules/d3-time-format/locale/$1",
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/file-mock.js",
+      "\\.(css|less)$": "<rootDir>/__mocks__/style-mock.js",
+      "^vue$": "vue/dist/vue.common.js",
+      "sql\\.js/dist/sql-wasm\\.wasm$": "<rootDir>/src/utils/__mocks__/sql-wasm-mock.js",
+      "d3": "<rootDir>/node_modules/d3/dist/d3.min.js"
+    },
+    "moduleFileExtensions": [
+      "js",
+      "mjs",
+      "ts",
+      "json",
+      "vue"
+    ],
+    "transform": {
+      "^.+\\.m?js$": [
+        "babel-jest",
+        {
+          "configFile": "./babel-jest.config.json"
+        }
+      ],
+      "^.+\\.vue$": "@vue/vue2-jest",
+      "^.+\\.ts$": [
+        "babel-jest",
+        {
+          "configFile": "./babel-jest-ts.config.cjs"
+        }
+      ],
+      "\\.(sql|vega)$": "<rootDir>/jest-raw-transform.cjs"
+    },
+    "transformIgnorePatterns": [
+      "/node_modules/(?!d3|@hestia.ai|lodash-es|vega-lite|vuetify)",
+      "\\.pnp\\.[^\\/]+$"
+    ],
+    "testPathIgnorePatterns": [
+      "<rootDir>/node_modules/",
+      "<rootDir>/e2e/",
+      "\\.helpers\\.js",
+      "testSetup.js"
+    ]
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ],
+  "overrides": {
+    "@types/d3-array": "3.0.4",
+    "@types/d3-axis": "3.0.2",
+    "@types/d3-brush": "3.0.2",
+    "@types/d3-chord": "3.0.2",
+    "@types/d3-color": "3.1.0",
+    "@types/d3-contour": "3.0.2",
+    "@types/d3-delaunay": "6.0.1",
+    "@types/d3-dispatch": "3.0.2",
+    "@types/d3-drag": "3.0.2",
+    "@types/d3-dsv": "3.0.1",
+    "@types/d3-ease": "3.0.0",
+    "@types/d3-fetch": "3.0.2",
+    "@types/d3-force": "3.0.4",
+    "@types/d3-format": "3.0.1",
+    "@types/d3-geo": "3.0.3",
+    "@types/d3-hierarchy": "3.1.1",
+    "@types/d3-interpolate": "3.0.1",
+    "@types/d3-path": "3.0.0",
+    "@types/d3-polygon": "3.0.0",
+    "@types/d3-quadtree": "3.0.2",
+    "@types/d3-random": "3.0.1",
+    "@types/d3-scale": "4.0.3",
+    "@types/d3-scale-chromatic": "3.0.0",
+    "@types/d3-selection": "3.0.4",
+    "@types/d3-shape": "3.1.1",
+    "@types/d3-time": "3.0.0",
+    "@types/d3-time-format": "4.0.0",
+    "@types/d3-timer": "3.0.0",
+    "@types/d3-transition": "3.0.3",
+    "@types/d3-zoom": "3.0.2"
   }
 }

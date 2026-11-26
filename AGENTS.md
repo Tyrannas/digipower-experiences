@@ -1,81 +1,71 @@
-# Working in digipower-experiences
+# Working in this repository
 
 Instructions for coding agents and new contributors. Read this before changing anything.
 
 ## What this is
 
-[digipower.academy](https://digipower.academy) lets people explore the personal data they download from platforms (Google, Facebook, Uber, …). Exports are processed **in the visitor's browser**; nothing leaves the device unless the visitor shares results with a *bubble* (see below). The roadmap is #1415.
+A static web app that lets people explore the personal data they download from platforms
+(Google, Instagram, Uber, …). The export is processed **in the visitor's browser, and nothing
+leaves it**: no server, no CDN, no analytics. The page's Content-Security-Policy
+(`public/index.html`) makes the browser enforce this.
 
 | Folder | What it is |
 |---|---|
-| `packages/` | Lerna/TypeScript monorepo. `packages/packages/experiences/<name>/` holds one **experience** per data source (32 of them). `packages/lib/` holds the shared `Experience` class and types. |
-| `data-experience/` | Vue 2 component library that loads an export and renders an experience. Published as `@hestia.ai/data-experience`. Has the Jest and Playwright tests. |
-| `dc-dashboard/` | Vue 2 dashboard library (dc.js), used by the site. |
-| `experiences/` | Nuxt 2 static site that builds digipower.academy. `config/<name>.json` selects experiences and bubbles. |
-| `../digipower-bubble-server` | Separate repo: Django server storing encrypted submissions for bubbles. Needed only for bubble flows and the Playwright tests. |
+| `experiences/<name>/` | one **experience** per data source: `src/index.ts`, `src/<name>-viewer.json`, optional `database.ts`, `sql/`, `viewer-functions.ts`, `views/*.vue` |
+| `lib/` | shared `Experience` class, types, generic pipelines, configuration validation |
+| `src/` | Vue 2 engine: file loading, SQLite database, tabs, shared views (`src/components/chart/view/`), Jest tests (`src/__tests__/`) |
+| `app/` | the page around the engine: list of experiences, network badge |
+| `public/` | page template with the CSP, icons, data samples (copied as is into `dist/`) |
+| `schemas/viewer/v1.json` | JSON Schema of the viewer JSON |
+| `e2e/` | zero-network Playwright test |
+
+There is one `package.json` and one build (`vue.config.js`): experiences are compiled from
+their TypeScript sources, nothing is published or prebuilt. Aliases: `@/` → `src/`,
+`@lib/` → `lib/`, `@experiences/` → `experiences/`.
 
 ## Setup and checks
 
 Node 22 (`.nvmrc`), npm 10+.
 
 ```sh
-npm run setup              # packages + data-experience: enough for the checks below
-npm run setup -- --site    # also dc-dashboard, data-experience library, Nuxt site
-npm test                   # the same checks as CI (.github/workflows/ci.yml)
+npm ci
+npm run dev            # http://localhost:8080, hot reload
+npm run check          # lint + typecheck + jest (unit, configuration of every experience, golden)
+npm run build && npm run test:offline   # every tab of every sample, no request to another server
 ```
 
-Re-running setup is quick: it skips `npm ci` in a folder whose lockfile (and Node version, and `CONFIG_NAME`) hasn't changed, and skips a build whose sources haven't changed. `npm run setup -- --clean` forces everything.
+**Done means `npm run check` and `npm run test:offline` pass, and CI is green.** Focused checks:
 
-**Done means `npm test` passes and CI is green on the PR.** Run focused checks while iterating:
-
-- one experience's config: `cd packages && EXPERIENCES=<name> npm run build && npm run test:ts-node -- <name>` (`EXPERIENCES=a,b` builds only those; `npm test` needs a full build)
-- views, without building anything: `cd packages && npm run dev` (rebuilds on change) and `cd data-experience && npm run dev:app` (http://localhost:8080, hot reload); pick the experience in the dropdown and drop in a sample from `packages/lib/data-samples/`
-- one Jest file: `cd data-experience && npx jest src/__tests__/<name>`
-- lint one file: `cd data-experience && npx eslint <file>`
-- golden tests (every tab's output on sample data, compared with snapshots): `cd data-experience && npm run test:golden`; after an intended change, `npm run test:golden -- -u` and explain the snapshot diff in the PR. See `data-experience/src/__tests__/golden/README.md`.
-- screenshot tests (every tab of the experiences listed in `data-experience/e2e/visual/experiences.spec.js`, in English and French, desktop and phone): `cd data-experience && npm run test:visual`. Needs Docker; runs in CI. After an intended change, `npm run test:visual -- --update-snapshots`. See `data-experience/e2e/README.md`.
-
-The other Playwright specs (`data-experience/e2e`) are not in CI yet: they need `npm run dev:app` in `data-experience` on port 8080 and the bubble server on port 8000. `e2e/fixtures.js` serves CDN assets locally; the Facebook and Google specs still need internet access for the Kepler map (unpkg).
+- one Jest file: `npx jest src/__tests__/<name>`
+- golden tests (every tab's output on the samples, compared with snapshots): `npm run test:golden`;
+  after an intended change, `npm run test:golden -- -u` and explain the snapshot diff
+- one experience in the zero-network test: `npm run test:offline -- -g <name>`
+  (`CHROMIUM_PATH=/path/to/chrome` to use an installed browser)
 
 ## How an experience works
 
-An experience is `packages/packages/experiences/<name>/`:
+See [docs/creating-an-experience.md](docs/creating-an-experience.md). In short:
 
-- `src/index.ts` builds `new Experience(loaderOptions, viewerOptions, packageJSON, import.meta.url, viewerFunctions)`.
-  - `loaderOptions.files`: file id → glob inside the export zip, e.g. `impressions: '**/ad-impressions.js'`.
-  - `loaderOptions.databaseConfig` (optional, `src/database.ts`): SQLite tables plus JSONPath getters that turn files into rows. Validated by an Ajv schema in `packages/lib/database-config-validation/`.
-  - `preprocessors` (optional): glob → function that fixes file text before parsing.
-- `src/<name>-viewer.json`: what the visitor sees. A list of `viewBlocks` (tabs), each with:
-  - an `id`;
-  - **either** `sql` (run on the database) **or** `customPipeline` (a function name from `viewer-functions.ts`, or a generic one from `data-experience/src/utils/generic-pipelines.js`);
-  - optionally a `postprocessor`;
-  - a `visualization`: a Vue file under `data-experience/src/components/chart/view/` (e.g. `"ChartViewDashboard.vue"`, `"uberEats/Overview.vue"`, without a `view/` prefix), or an inline Vega spec;
-  - `vizProps` for that component.
-  - Text and translations go in `messages.{en,fr}` (format: `packages/MESSAGES_JSON.md`).
-- Every pipeline returns `{ headers, items }`.
-- Types: `packages/lib/types/`. The viewer JSON format is a JSON Schema, `packages/schemas/viewer/v1.json`, checked by `npm test`.
-- A minimal example: `packages/packages/experiences/database-template/`.
-
-When you add an experience, also:
-- add it to `packages/packages.ts` (alphabetical; this is what `npm test` validates);
-- add it to `experiences/config/dev.json`;
-- keep `data-experience/public/<name>-viewer.json` identical to the package's copy (`npm run check:viewer-sync`), or list it in `.viewer-sync-allowlist`.
+- `src/index.ts` builds `new Experience(loaderOptions, viewerOptions, packageJSON, import.meta.url, viewerFunctions)`;
+  `loaderOptions.files` maps file ids to globs inside the export.
+- `src/<name>-viewer.json` lists the tabs (`viewBlocks`): `sql` or `customPipeline`, optional
+  `postprocessor`, a `visualization` and its `vizProps`, texts in `messages.{en,fr}`
+  ([docs/viewer-messages.md](docs/viewer-messages.md)).
+- `visualization` is `"./views/<File>.vue"` (a view of the experience, in its `src/views/`),
+  the file name of a shared view of `src/components/chart/view/`, or an inline Vega spec.
+- Every pipeline returns `{ headers, items }`. Types: `lib/types/`.
+- The app lists every folder with a `src/index.ts`: there is nothing to register.
 
 ## Rules
 
-- **Personal data.** Never commit a real person's export unless their consent is recorded. Put real exports for development in `experience-intake/inbox/` (git-ignored). Test fixtures should be synthetic.
-- **Anything that changes what leaves the visitor's browser needs a human reviewer.** That includes the consent form (`UnitConsentForm.vue`), encryption (`utils/encryption.js`), uploads to bubbles (`utils/bubble-api.js`), and new network requests.
+- **Personal data.** Never commit a real person's export unless their consent is recorded.
+  Put real exports for development in `experience-intake/inbox/` (git-ignored). Samples in
+  `public/data-samples/` and test fixtures must be synthetic.
+- **Nothing may leave the browser.** No new network request, CDN, font or tile server, no
+  embedded third-party iframe. Bundle what you need. Do not loosen the CSP in
+  `public/index.html`. Any change that affects this needs a human reviewer.
 - **Never skip or disable a failing test to get green.** Fix the cause, or report it.
-- **No visual change without an explained screenshot diff.** If a PR changes a screenshot, update it in the same PR and say in the description what changed and why. A refactor (moving logic into a shared layer, switching to shared components) must leave every screenshot unchanged.
-- **Don't edit generated output:** `packages/packages/experiences/*/dist`, `data-experience/dist`, `experiences/dist`.
-- **Don't publish to npm or deploy.** That's done by maintainers (`packages/README.md`, `deploy_digipower.sh`).
+- **No visual or output change without an explanation.** A refactor must leave the golden
+  snapshots unchanged; if a change is intended, update them in the same PR and explain why.
+- **Don't edit generated output:** `dist/`, `test-results/`.
 - **Keep changes minimal and in scope.** One goal or fix per PR, and say in the PR how you verified it.
-
-## Docs and their status
-
-- `README.md`: setup, current.
-- `packages/README.md`: monorepo, creating a package, publishing.
-- `how-to-create-an-experience.md` and `README-how-to-create-a-new-experience.md`: authoring guides. The second one is the most recent (bespoke Vue views, stores, tours).
-- `packages/MESSAGES_JSON.md`: translation format for viewer JSON.
-- `packages/schemas/README.md`: the viewer JSON schema and its versioning rules.
-- `I18N.md`: outdated design notes, kept for history.

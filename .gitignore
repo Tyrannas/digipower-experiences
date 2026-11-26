@@ -1,12 +1,20 @@
-/.log/
-
-# MAC Files
-.DS_STORE
-
-/node_modules
-/data-experience/.log/
-/data-experience/demo/
+node_modules/
+/dist/
+/test-results/
+/playwright-report/
+.eslintcache
 .env
+.env.*
+*.log
+# macOS files
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+__MACOSX/
+.Spotlight-V100
+.Trashes
+.idea/
 
 # Real data exports for local development (see AGENTS.md)
 experience-intake/inbox/*

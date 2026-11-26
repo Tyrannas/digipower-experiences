@@ -7,4 +7,4 @@ if [ "${CLAUDE_CODE_REMOTE:-}" != "true" ]; then
 fi
 
 cd "$CLAUDE_PROJECT_DIR"
-bash scripts/setup.sh
+npm ci

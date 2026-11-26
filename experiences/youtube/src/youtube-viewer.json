@@ -1,0 +1,19 @@
+{
+  "dataSamples": [],
+  "hideEmptyTabs": false,
+  "hideFileExplorer": false,
+  "hideSummary": false,
+  "messages": {
+    "en": {
+      "viewBlocks": {}
+    },
+    "fr": {
+      "viewBlocks": {}
+    }
+  },
+  "tutorialVideos": [],
+  "title": "YouTube",
+  "icon": "./icons/youtube.png",
+  "viewBlocks": [],
+  "version": 1
+}

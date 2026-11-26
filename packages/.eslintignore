@@ -1,6 +1,0 @@
-.circleci
-.github
-.husky
-.vscode
-dist
-node_modules

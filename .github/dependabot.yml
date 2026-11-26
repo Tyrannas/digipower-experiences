@@ -1,25 +1,11 @@
 version: 2
 updates:
-# Fetch and update latest `npm` packages
-- package-ecosystem: npm
-  directory: '/experiences'
-  schedule:
-    interval: monthly
-    time: '00:00'
-  open-pull-requests-limit: 50
-  commit-message:
-    prefix: fix
-    prefix-development: chore
-    include: scope
-# this does not seem to be allowed...
-# https://github.com/dependabot/dependabot-core/issues/4993
-# - package-ecosystem: "npm" # See documentation for possible values
-#   directory: "/packages" # Location of package manifests
-#   schedule:
-#     interval: monthly
-#     time: '00:00'
-#   open-pull-requests-limit: 50
-#   commit-message:
-#     prefix: fix
-#     prefix-development: chore
-#     include: scope
+  - package-ecosystem: npm
+    directory: '/'
+    schedule:
+      interval: monthly
+    open-pull-requests-limit: 10
+    commit-message:
+      prefix: fix
+      prefix-development: chore
+      include: scope

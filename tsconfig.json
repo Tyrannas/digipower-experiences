@@ -1,0 +1,24 @@
+{
+  // Type checking of the experiences and their library: npm run typecheck.
+  // The build only strips the types (babel), it does not check them.
+  "compilerOptions": {
+    "module": "es2020",
+    "target": "es2016",
+    "allowJs": true,
+    "strict": true,
+    "noEmit": true,
+    "lib": ["dom", "es2020"],
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "types": ["node", "lodash", "d3"],
+    "baseUrl": ".",
+    "moduleResolution": "node",
+    "paths": {
+      "@lib/*": ["lib/*"],
+      "@/*": ["src/*"],
+      "@experiences/*": ["experiences/*"]
+    }
+  },
+  "include": ["custom.d.ts", "lib/**/*.ts", "experiences/**/*.ts"]
+}
